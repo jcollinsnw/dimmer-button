@@ -330,11 +330,11 @@ class DimmerButton extends LitElement {
         .top {
           font-size: var(--font-size);
           min-height: 35px;
-          max-height: 40px;
+          max-height: 67px;
           min-width: 40%;
           flex-grow: 1;
           padding-top: calc(var(--card-height) / 5);
-          padding-right: 5%;
+          padding-left: 5%;
           margin-bottom: -20px;
         }
 
