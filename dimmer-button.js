@@ -110,20 +110,6 @@ class DimmerButton extends LitElement {
     this.vertical = this.config.direction == 'vertical' ? true : false;
     this.entityConfig(entityStates);
     return html`
-    <ha-card id="card" class="button-card-main type-custom-button-card" style="color: rgb(62, 62, 62); background-color: var(--paper-item-icon-active-color); padding: 0.2em; --mdc-ripple-color:white; --mdc-ripple-press-opacity:0.5;">
-      <div id="container" class="vertical no-state no-label" style="">
-        <div id="img-cell" style="">
-                <ha-icon id="icon" style="width: 80%; position: relative; opacity: 0.5;"></ha-icon>
-        </div>
-              <div id="name" class="ellipsis" style="font-size: 0.65em; white-space: normal;">
-                Main Lights
-              </div>
-      </div>
-          <mwc-ripple id="ripple"></mwc-ripple>
-      <style>
-      </style>
-    </ha-card>`
-    return html`
       <ha-card>
         <div class="button ${this.active}" style="
         ${this.mode == "static" && !hideState ? (entityStates.state == "on" ? "--dimmer-background:"+foreground : "--dimmer-background:"+background) : "--dimmer-background:"+background};
