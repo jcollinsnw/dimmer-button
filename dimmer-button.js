@@ -20,7 +20,7 @@ class DimmerButton extends LitElement {
   }
 
   static getStubConfig() {
-    return { entity: '#Required',name: '#friendly_name',mode: '#supports "brightness" or "color_temp" for light and "volume" for media_player', direction: "horizontal", bottom: "#optional text under name", height: "",background: "",foreground: "",icon: "",on_icon: "",off_icon: "",on_color: "",off_color: "" }
+    return { entity: '#Required',name: '#friendly_name',mode: '#supports "brightness" or "color_temp" for light and "volume" for media_player', direction: "horizontal", bottom: "#optional text under name", hideState: "false", height: "",background: "",foreground: "",icon: "",on_icon: "",off_icon: "",on_color: "",off_color: "" }
     }
 
   constructor() {
@@ -95,6 +95,7 @@ class DimmerButton extends LitElement {
 
   render() {
     const entity = this.config.entity;
+    const hideState = this.config.hideState ? JSON.parse(this.config.hideState) : false
     const entityStates = this.hass.states[entity]
     const name = this.config.name ? this.config.name : entityStates.attributes.friendly_name;
     const onColor = this.config.on_color ? this.config.on_color : "#fdd835";
@@ -109,9 +110,23 @@ class DimmerButton extends LitElement {
     this.vertical = this.config.direction == 'vertical' ? true : false;
     this.entityConfig(entityStates);
     return html`
+    <ha-card id="card" class="button-card-main type-custom-button-card" style="color: rgb(62, 62, 62); background-color: var(--paper-item-icon-active-color); padding: 0.2em; --mdc-ripple-color:white; --mdc-ripple-press-opacity:0.5;">
+      <div id="container" class="vertical no-state no-label" style="">
+        <div id="img-cell" style="">
+                <ha-icon id="icon" style="width: 80%; position: relative; opacity: 0.5;"></ha-icon>
+        </div>
+              <div id="name" class="ellipsis" style="font-size: 0.65em; white-space: normal;">
+                Main Lights
+              </div>
+      </div>
+          <mwc-ripple id="ripple"></mwc-ripple>
+      <style>
+      </style>
+    </ha-card>`
+    return html`
       <ha-card>
         <div class="button ${this.active}" style="
-        ${this.mode == "static" ? (entityStates.state == "on" ? "--dimmer-background:"+foreground : "--dimmer-background:"+background) : "--dimmer-background:"+background};
+        ${this.mode == "static" && !hideState ? (entityStates.state == "on" ? "--dimmer-background:"+foreground : "--dimmer-background:"+background) : "--dimmer-background:"+background};
         --dimmer-foreground:${foreground};
         --color-on:${onColor};
         --color-off:${offColor};
@@ -122,7 +137,7 @@ class DimmerButton extends LitElement {
         >
           <div class="text">
           <span class="top ${entityStates.state}"><ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>${entityStates.state} ${this.displayState}</span>
-          <span class="middle">${name}</span>
+          <span class="middle" style="font-size: 0.65em; white-space: normal; color: black;">${name}</span>
           ${bottomText ? html`<span class="bottom">${bottomText}</span>`: ''}
           </div>
           <input type="range" min="0" max="${entityStates.state !== "unavailable" ? this.rangeMax : "0" }" .value="${this.rangeValue}" 
