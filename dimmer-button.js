@@ -122,7 +122,10 @@ class DimmerButton extends LitElement {
         ${this.vertical ? "--range-width:"+cardHeight+"; --range-height:500px; --right:500px; --touch: none" : "--range-width: 100%; --range-height:100%; --right:0; --touch: pan-y;" };"
         >
           <div class="text">
-          <span class="top ${entityStates.state}"><ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>${entityStates.state} ${this.displayState}</span>
+          <span class="top ${entityStates.state}">
+            <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
+            <span class="state">${entityStates.state} ${this.displayState}</span>
+          </span>
           <span class="middle" style="font-size: 0.65em; white-space: normal; color: black;">${name}</span>
           ${bottomText ? html`<span class="bottom">${bottomText}</span>`: ''}
           </div>
@@ -319,8 +322,8 @@ class DimmerButton extends LitElement {
 
         .icon{
           margin-right: 10px;
-          --mdc-icon-size: 30px;
-          top: -3px;
+          --mdc-icon-size: 80px;
+          top: -16px;
           position: relative;
         }
 
@@ -338,12 +341,11 @@ class DimmerButton extends LitElement {
         .middle {
           font-size: var(--font-size);
           font-weight: var(--paper-font-title_-_font-weight);
-          min-height: 30px;
-          max-height: 35px;
+          max-height: 15px;
           min-width: 50%;
           flex-grow: 1;
-          padding-left: 1%;
-          padding-top: calc(3px + calc(var(--card-height) / 5));
+          color: rgb(62, 62, 62);
+          padding-top: 20px;
         }
 
         .bottom {
