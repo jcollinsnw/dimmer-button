@@ -305,9 +305,8 @@ class DimmerButton extends LitElement {
           overflow: hidden;
           display: flex;
           flex-flow: column wrap;
-          padding-left: 6%;
           height: 100%;
-          width: 94%;
+          width: 100%;
         }
 
         span{
