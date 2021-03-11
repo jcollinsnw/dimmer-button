@@ -124,9 +124,9 @@ class DimmerButton extends LitElement {
           <div class="text">
           <span class="top ${entityStates.state}">
             <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
-            <span class="state">${entityStates.state} ${this.displayState}</span>
+            <!--<span class="state">${entityStates.state} ${this.displayState}</span>-->
           </span>
-          <span class="middle" style="font-size: 0.65em; white-space: normal; color: black;">${name}</span>
+          <span class="middle ${entityStates.state}" style="font-size: 0.65em; white-space: normal; color: black;">${name}</span>
           ${bottomText ? html`<span class="bottom">${bottomText}</span>`: ''}
           </div>
           <input type="range" min="0" max="${entityStates.state !== "unavailable" ? this.rangeMax : "0" }" .value="${this.rangeValue}" 
