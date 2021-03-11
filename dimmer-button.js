@@ -100,6 +100,8 @@ class DimmerButton extends LitElement {
     const name = this.config.name ? this.config.name : entityStates.attributes.friendly_name;
     const onColor = this.config.on_color ? this.config.on_color : "#fdd835";
     const offColor = this.config.off_color ? this.config.off_color : "gray";
+    const textOnColor = this.config.text_on_color ? this.config.text_on_color : "#fdd835";
+    const textOffColor = this.config.text_off_color ? this.config.text_off_color : "gray";
     const cardHeight = this.config.height ? this.config.height : "150px";
     let bottomText = parseInt(cardHeight) >= 150 ? this.config.bottom : '';
     let background = this.config.background ? this.config.background : "var(--ha-card-background)";
@@ -116,6 +118,8 @@ class DimmerButton extends LitElement {
         --dimmer-foreground:${foreground};
         --color-on:${onColor};
         --color-off:${offColor};
+        --text-color-on:${textOnColor};
+        --text-color-off:${textOffColor};
         --card-height:${cardHeight};
         --font-size:${fontSize};
         --rotation:${this.vertical ? '270deg' : '0deg' };
@@ -352,6 +356,13 @@ class DimmerButton extends LitElement {
           color: rgb(62, 62, 62);
           padding-top: 20px;
           font-family: Roboto, Noto, sans-serif;
+        }
+
+        .middle.off, .middle.paused, .middle.unavailable {
+          color: var(--text-color-off) !important;
+        }
+        .middle.on, .middle.playing {
+          color: var(--text-color-on) !important;
         }
 
         .bottom {
