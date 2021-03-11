@@ -341,8 +341,7 @@ class DimmerButton extends LitElement {
           max-height: 67px;
           min-width: 40%;
           flex-grow: 1;
-          padding-top: calc(var(--card-height) / 5);
-          padding-left: 5%;
+          padding-top: 21px; /* calc(var(--card-height) / 5) */
           margin-bottom: -20px;
         }
 
@@ -353,7 +352,7 @@ class DimmerButton extends LitElement {
           min-width: 50%;
           flex-grow: 1;
           color: rgb(62, 62, 62);
-          padding-top: 20px;
+          padding-top: 18px;
           font-family: Roboto, Noto, sans-serif;
         }
 
