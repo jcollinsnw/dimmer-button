@@ -320,10 +320,15 @@ class DimmerButton extends LitElement {
           color: var(--color-on);
         }
 
+        .status {
+          display: none;
+        }
+
         .icon{
           margin-right: 10px;
           --mdc-icon-size: 80px;
           top: -16px;
+          left: 5%;
           position: relative;
         }
 
@@ -345,7 +350,8 @@ class DimmerButton extends LitElement {
           min-width: 50%;
           flex-grow: 1;
           color: rgb(62, 62, 62);
-          padding-top: 20px;
+          padding-top: 46px;
+          font-family: Roboto, Noto, sans-serif;
         }
 
         .bottom {
