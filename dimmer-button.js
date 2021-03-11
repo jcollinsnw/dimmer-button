@@ -328,10 +328,7 @@ class DimmerButton extends LitElement {
         }
 
         .icon{
-          margin-right: 10px;
-          --mdc-icon-size: 80px;
-          top: -16px;
-          left: 5%;
+          --mdc-icon-size: 100%;
           position: relative;
         }
 
@@ -341,7 +338,7 @@ class DimmerButton extends LitElement {
           max-height: 67px;
           min-width: 40%;
           flex-grow: 1;
-          padding-top: 21px; /* calc(var(--card-height) / 5) */
+          padding-top: 5%; /* calc(var(--card-height) / 5) */
           margin-bottom: -20px;
         }
 
