@@ -350,7 +350,7 @@ class DimmerButton extends LitElement {
           min-width: 50%;
           flex-grow: 1;
           color: rgb(62, 62, 62);
-          padding-top: 46px;
+          padding-top: 20px;
           font-family: Roboto, Noto, sans-serif;
         }
 
