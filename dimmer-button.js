@@ -111,7 +111,7 @@ class DimmerButton extends LitElement {
     let fontSize = fontSizeH < fontSizeW ? fontSizeH : fontSizeW;
     this.vertical = this.config.direction == 'vertical' ? true : false;
     this.entityConfig(entityStates);
-    return html`
+    /* return html`
       <ha-card>
         <div class="button ${this.active}" style="
         ${this.mode == "static" && !hideState ? (entityStates.state == "on" ? "--dimmer-background:"+foreground : "--dimmer-background:"+background) : "--dimmer-background:"+background};
@@ -126,14 +126,49 @@ class DimmerButton extends LitElement {
         ${this.vertical ? "--range-width:"+cardHeight+"; --range-height:500px; --right:500px; --touch: none" : "--range-width: 100%; --range-height:100%; --right:0; --touch: pan-y;" };"
         >
           <div class="text">
-          <span class="top ${entityStates.state}">
-            <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
-            <!--<span class="state">${entityStates.state} ${this.displayState}</span>-->
-          </span>
-          <span class="middle ${entityStates.state}" style="font-size: 0.65em; white-space: normal; color: black;">${name}</span>
+            <div class="top ${entityStates.state}">
+              <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
+            </div>
+            <div class="middle ${entityStates.state}" style="font-size: 0.65em; white-space: normal; color: black;">
+             ${name}
+          </div>
           ${bottomText ? html`<span class="bottom">${bottomText}</span>`: ''}
           </div>
           <input type="range" min="0" max="${entityStates.state !== "unavailable" ? this.rangeMax : "0" }" .value="${this.rangeValue}" 
+            @pointerdown=${e => this._startCords(entity, e)}
+            @pointerup=${e => this._endCords(entityStates, e)}
+            @pointermove=${e => this._moveHandler(e)}
+            @change=${e => this._setValue(entityStates, e)}
+            @input=${e => this._displayValue(e.target.value)}
+            >
+        </div>
+      </ha-card>
+    `; */
+    return html`
+      <ha-card>
+        <div class="grid-container button ${this.active}" style="
+        ${this.mode == "static" && !hideState ? (entityStates.state == "on" ? "--dimmer-background:" + foreground : "--dimmer-background:" + background) : "--dimmer-background:" + background};
+        --dimmer-foreground:${foreground};
+        --color-on:${onColor};
+        --color-off:${offColor};
+        --text-color-on:${textOnColor};
+        --text-color-off:${textOffColor};
+        --card-height:${cardHeight};
+        --font-size:${fontSize};
+        --rotation:${this.vertical ? '270deg' : '0deg'};
+        ${this.vertical ? "--range-width:" + cardHeight + "; --range-height:500px; --right:500px; --touch: none" : "--range-width: 100%; --range-height:100%; --right:0; --touch: pan-y;"};"
+        >
+          <div class="icon">
+            <div class="top ${entityStates.state}">
+              <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
+            </div>
+          </div>
+          <div class="text">
+            <div class="middle ${entityStates.state}" style="font-size: 0.65em; white-space: normal; color: black;">
+            ${name}
+            </div>
+          </div>
+          <input type="range" min="0" max="${entityStates.state !== "unavailable" ? this.rangeMax : "0"}" .value="${this.rangeValue}" 
             @pointerdown=${e => this._startCords(entity, e)}
             @pointerup=${e => this._endCords(entityStates, e)}
             @pointermove=${e => this._moveHandler(e)}
@@ -301,12 +336,24 @@ class DimmerButton extends LitElement {
           background: none;
         }
 
+        .grid-container {
+          display: grid;
+          align-items: center;
+          text-align: center;
+          grid-template-columns: 1fr;
+          grid-template-rows: 4fr 1fr;
+          gap: 8px 0px;
+        }
+
+        .icon {
+          grid-area: 1 / 1 / 3 / 2;
+          --mdc-icon-size: 100%;
+        }
+
         .text{
+          grid-area: 2 / 1 / 3 / 2;
           overflow: hidden;
-          display: flex;
-          flex-flow: column wrap;
-          height: 100%;
-          width: 100%;
+          font-family: Roboto, Noto, sans-serif;
         }
 
         span{
@@ -327,29 +374,14 @@ class DimmerButton extends LitElement {
           display: none;
         }
 
-        .icon{
-          --mdc-icon-size: 100%;
-          position: relative;
-        }
-
         .top {
           font-size: var(--font-size);
-          min-height: 35px;
-          max-height: 67px;
-          min-width: 40%;
-          flex-grow: 1;
-          padding-top: 5%; /* calc(var(--card-height) / 5) */
-          margin-bottom: -20px;
         }
 
         .middle {
           font-size: var(--font-size);
           font-weight: var(--paper-font-title_-_font-weight);
-          max-height: 15px;
-          min-width: 50%;
-          flex-grow: 1;
           color: rgb(62, 62, 62);
-          padding-top: 18px;
           font-family: Roboto, Noto, sans-serif;
         }
 
@@ -363,7 +395,6 @@ class DimmerButton extends LitElement {
         .bottom {
           font-size: var(--paper-font-body1_-_font-size);
           font-weight: var(--paper-font-body1_-_font-weight);
-          flex-grow: 10;
           max-height: 40px;
           padding-left: 1%;
           padding-right: 10%;
