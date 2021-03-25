@@ -146,7 +146,7 @@ class DimmerButton extends LitElement {
     `; */
     return html`
       <ha-card>
-        <div class="grid-container button ${this.active}" style="
+        <div class="button ${this.active}" style="
         ${this.mode == "static" && !hideState ? (entityStates.state == "on" ? "--dimmer-background:" + foreground : "--dimmer-background:" + background) : "--dimmer-background:" + background};
         --dimmer-foreground:${foreground};
         --color-on:${onColor};
@@ -158,14 +158,16 @@ class DimmerButton extends LitElement {
         --rotation:${this.vertical ? '270deg' : '0deg'};
         ${this.vertical ? "--range-width:" + cardHeight + "; --range-height:500px; --right:500px; --touch: none" : "--range-width: 100%; --range-height:100%; --right:0; --touch: pan-y;"};"
         >
-          <div class="icon">
-            <div class="top ${entityStates.state}">
-              <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
-            </div>
-          </div>
           <div class="text">
-            <div class="middle ${entityStates.state}" style="font-size: 0.65em; white-space: normal; color: black;">
-            ${name}
+            <div class="top ${entityStates.state}">
+              <div class="grid-container">
+                <div class="iconcontainer">
+                  <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
+                </div>
+                <div class="name">
+                  ${name}
+                </div>
+              </div>
             </div>
           </div>
           <input type="range" min="0" max="${entityStates.state !== "unavailable" ? this.rangeMax : "0"}" .value="${this.rangeValue}" 
@@ -345,24 +347,33 @@ class DimmerButton extends LitElement {
           gap: 8px 0px;
         }
 
-        .icon {
+        .iconcontainer {
           grid-area: 1 / 1 / 3 / 2;
+        }
+        .icon {
           --mdc-icon-size: 100%;
         }
 
-        .text{
+        .name{
           grid-area: 2 / 1 / 3 / 2;
           overflow: hidden;
           font-family: Roboto, Noto, sans-serif;
         }
 
+        .text{
+          overflow: hidden;
+          display: flex;
+          flex-flow: column wrap;
+          padding-left: 6%;
+          height: 100%;
+          width: 94%;
+        }
         span{
           z-index: 1;
           pointer-events: none;
           text-transform: capitalize;
           margin: 0;
         }
-
         span.off, span.paused, span.unavailable {
           color: var(--color-off);
         }

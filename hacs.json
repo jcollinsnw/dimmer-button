@@ -1,0 +1,9 @@
+{
+  "name": "Jakes Dimmer Button",
+  "content_in_root": true,
+  "filename": "dimmer-button.js",
+  "render_readme": true,
+  "country": [
+    "US"
+  ]
+}
