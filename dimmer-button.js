@@ -158,15 +158,13 @@ class DimmerButton extends LitElement {
         --rotation:${this.vertical ? '270deg' : '0deg'};
         ${this.vertical ? "--range-width:" + cardHeight + "; --range-height:500px; --right:500px; --touch: none" : "--range-width: 100%; --range-height:100%; --right:0; --touch: pan-y;"};"
         >
-          <div class="text">
-            <div class="top ${entityStates.state}">
-              <div class="grid-container">
-                <div class="iconcontainer">
-                  <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
-                </div>
-                <div class="name">
-                  ${name}
-                </div>
+          <div class="text top ${entityStates.state}">
+            <div class="grid-container">
+              <div class="iconcontainer">
+                <ha-icon class="icon" icon=${entityStates.state === "off" ? this.iconOff : this.iconOn}></ha-icon>
+              </div>
+              <div class="name">
+                ${name}
               </div>
             </div>
           </div>
@@ -351,13 +349,15 @@ class DimmerButton extends LitElement {
           grid-area: 1 / 1 / 3 / 2;
         }
         .icon {
-          --mdc-icon-size: 100%;
+          --mdc-icon-size: 80%;
+          pointer-events: none;
         }
 
         .name{
           grid-area: 2 / 1 / 3 / 2;
           overflow: hidden;
           font-family: Roboto, Noto, sans-serif;
+          font-size: var(--font-size);
         }
 
         .text{
@@ -367,6 +367,7 @@ class DimmerButton extends LitElement {
           padding-left: 6%;
           height: 100%;
           width: 94%;
+          pointer-events: none;
         }
         span{
           z-index: 1;
